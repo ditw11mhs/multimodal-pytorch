@@ -13,6 +13,9 @@ stqdm = "^0.0.4"
 scipy = "^1.9.3"
 matplotlib = "^3.7.1"
 polars = "^0.17.2"
+torch = "^2.0.0"
+torchvision = "^0.15.1"
+scikit-learn = "^1.2.2"
 
 [tool.poetry.dev-dependencies]
 
