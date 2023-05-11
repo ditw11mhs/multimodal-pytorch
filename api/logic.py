@@ -49,7 +49,7 @@ class ANNModel(nn.Module):
         return x
 
 
-def load_dataset(root_path: Path, config: ANNModelConfig):
+def create_dataset(root_path: Path):
     dataset_folder = root_path / "data"
     transform_func = transforms.ToTensor()
 
@@ -65,6 +65,11 @@ def load_dataset(root_path: Path, config: ANNModelConfig):
         download=True,
         transform=transform_func,
     )
+    return train_data, test_data
+
+
+def load_dataset(root_path: Path, config: ANNModelConfig):
+    train_data, test_data = create_dataset(root_path)
 
     train_data_loader = DataLoader(
         train_data, batch_size=config.train_batch_size, shuffle=True
@@ -74,6 +79,19 @@ def load_dataset(root_path: Path, config: ANNModelConfig):
     )
 
     return train_data_loader, test_data_loader
+
+
+def load_sample(root_path: Path):
+    sample = []
+    _, test_data = create_dataset(root_path)
+
+    test_data_loader = DataLoader(test_data, batch_size=1, shuffle=False)
+
+    for batch, (x_sample, y_sample) in enumerate(test_data_loader):
+        if batch == 3:
+            break
+        sample.append([x_sample, y_sample])
+    return sample
 
 
 def train_model(
@@ -136,8 +154,7 @@ def train_model(
                 f"epoch: {epoch:2} loss: {train_loss:10.8f} accuracy: {train_acc:7.3f}%"
             )
             train_correct.append(train_acc)
-        #
-        #
+
         #     # Update train loss & accuracy for the epoch
         train_losses.append(train_loss.item())
 
