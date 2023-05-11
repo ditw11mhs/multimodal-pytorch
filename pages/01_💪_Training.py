@@ -11,9 +11,7 @@ def initialization_flow():
     with st.form("Training Parameter"):
         c1, c2 = st.columns(2)
         dataset = c1.selectbox("Select Dataset", ["MNIST"])
-        model_name = c2.text_input(
-            "Model Name", value=f"model-{datetime.now().isoformat()}"
-        )
+        model_name = c2.text_input("Model Name", value="model-mnist")
 
         c3, c4, c5 = st.columns(3)
         n_input = int(c3.number_input("Number of input", min_value=1, value=784))
@@ -37,7 +35,7 @@ def initialization_flow():
         if st.form_submit_button("Start Training"):
             return utils.ANNModelConfig(
                 dataset=dataset,
-                model_name=model_name,
+                model_name=str(datetime.now().isoformat()) + "-" + model_name,
                 n_input=n_input,
                 n_output=n_output,
                 hidden_layer_nodes=hidden_layer_nodes,
