@@ -35,7 +35,9 @@ def initialization_flow():
         if st.form_submit_button("Start Training"):
             return utils.ANNModelConfig(
                 dataset=dataset,
-                model_name=str(datetime.now().isoformat()) + "-" + model_name,
+                model_name=str(datetime.now().isoformat(timespec="seconds"))
+                + "-"
+                + model_name,
                 n_input=n_input,
                 n_output=n_output,
                 hidden_layer_nodes=hidden_layer_nodes,

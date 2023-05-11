@@ -14,7 +14,6 @@ def initialization_flow():
         root_path = Path.cwd() / "models" / state["data_selection"]
 
         model_path = sorted(d for d in root_path.iterdir() if d.is_dir())
-        print(model_path)
         model_dict = {d.stem: d.as_posix() for d in model_path}
 
         model_selection = st.selectbox("Select Model", options=list(model_dict.keys()))
