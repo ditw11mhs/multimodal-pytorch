@@ -158,7 +158,7 @@ def train_model(
                 test_loss = criterion(y_val, y_test)
 
         test_losses.append(test_loss.item())
-        test_acc = (tst_corr / 60000) * 100
+        test_acc = (tst_corr / 10000) * 100
 
         if model.config.dataset == "MNIST":
             test_correct.append(test_acc)
@@ -189,3 +189,7 @@ def get_loss(config: ANNModelConfig):
 def get_optimizer(model: ANNModel):
     if model.config.optimizer == "Adam":
         return torch.optim.Adam(model.parameters())
+
+
+def load_model():
+    pass
